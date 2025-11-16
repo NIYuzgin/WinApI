@@ -4,6 +4,7 @@
 
 
 CONST CHAR LOGIN_IN[] = "Введите имя пользователя: ";
+CONST CHAR LOGIN_NULL = 'm';
 
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -52,10 +53,10 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)	// CAL
 		
 		case IDC_EDIT_LOGIN:
 		{
-			CONST INT SIZE = 256;
-			CHAR sz_buffer[SIZE] = {};
+			//CONST INT SIZE = 256;
+			//CHAR sz_buffer[SIZE] = {};
 			HWND hEditLogin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
-			SendMessage(hEditLogin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+			SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)LOGIN_NULL);
 			//if(EN_SETFOCUS ==0)SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)"");
 			//if(EN_KILLFOCUS ==0)SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)"");
 
