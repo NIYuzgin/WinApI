@@ -1,4 +1,4 @@
-#include<Windows.h>
+п»ї#include<Windows.h>
 #include"resource.h"
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -30,7 +30,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
-	case WM_INITDIALOG: // Выполняется один раз при запуске окна
+	case WM_INITDIALOG: // Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РѕРґРёРЅ СЂР°Р· РїСЂРё Р·Р°РїСѓСЃРєРµ РѕРєРЅР°
 	
 	{	
 		HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
@@ -40,7 +40,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		
 	}	
 		break;
-	case WM_COMMAND:	// Обрабатывает команды с клавиатуры и мыши
+	case WM_COMMAND:	// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РєРѕРјР°РЅРґС‹ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹ Рё РјС‹С€Рё
 		switch (LOWORD(wParam))
 		{
 		case IDC_BUTTON_COPY:
@@ -56,14 +56,14 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		
 		case IDOK:
-			MessageBox(NULL, "Была нажата кнопка 'OK'", "Info", MB_OK | MB_ICONINFORMATION);
+			MessageBox(NULL, "Р‘С‹Р»Р° РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° 'OK'", "Info", MB_OK | MB_ICONINFORMATION);
 			break;
 		case IDCANCEL:
 			EndDialog(hwnd, 0);
 			break;
 		}
 		break;
-	case WM_CLOSE:		// Выполняется при нажатии кнопки 'x'
+	case WM_CLOSE:		// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РєРЅРѕРїРєРё 'x'
 		EndDialog(hwnd,0);
 	}
 	return FALSE;
