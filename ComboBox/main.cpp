@@ -1,8 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<Windows.h>
 #include"resource.h"
+#include<cstdio>
 
 CONST CHAR* g_sz_VALUES[] = { "This", "is", "my", "first", "Combo","Box" };
-
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -21,10 +22,9 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		HWND hCombo = GetDlgItem(hwnd, IDC_COMBO1);
 		for (int i = 0; i < sizeof(g_sz_VALUES) / sizeof(g_sz_VALUES[0]); i++)
 		{
-
 			SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)g_sz_VALUES[i]);
-
 		}
+		SendMessage(hCombo, CB_SETCURSEL, 0, 0);
 	}
 	break;
 	case WM_COMMAND:
@@ -32,6 +32,16 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		switch (LOWORD(wParam))
 		{
 		case IDOK:
+		{
+			HWND hCombo = GetDlgItem(hwnd, IDC_COMBO1);
+			INT i = SendMessage(hCombo, CB_GETCURSEL, 0, 0);
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE]{};
+			SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)sz_buffer);
+			CHAR sz_message[SIZE];
+			sprintf(sz_message, "Вы выбрали этомент № %i со значением '%s'.", i, sz_buffer);
+			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
+		}
 			break;
 		case IDCANCEL:
 			EndDialog(hwnd, 0);
