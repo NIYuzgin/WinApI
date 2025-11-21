@@ -31,6 +31,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)	// CAL
 {
 	switch (uMsg)
 	{
+		//	WM_ - Window Message
 	case WM_INITDIALOG: // Выполняется один раз при запуске окна
 	{	
 		HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
@@ -56,6 +57,9 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)	// CAL
 				SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)"");
 			if (HIWORD(wParam) == EN_KILLFOCUS && strcmp(sz_buffer, "") == 0)
 				SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)g_sz_LOGIN_INVITE);
+
+			// EN_ - EditNotification
+			// EM_ - EditMessage
 		}
 		break;
 
