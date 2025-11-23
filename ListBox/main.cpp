@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 #include<Windows.h>
 #include"resource.h"
 #include<cstdio>
@@ -61,7 +61,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			CHAR sz_message[SIZE]{};
 			INT i = SendMessage(hListBox, LB_GETCURSEL, 0, (LPARAM)hListBox);
 			SendMessage(hListBox, LB_GETTEXT, i, (LPARAM)sz_buffer);
-			sprintf(sz_message, "Вы выбрали элемент № %i со значением \"%s\".", i, sz_buffer);
+			sprintf(sz_message, "Р’С‹ РІС‹Р±СЂР°Р»Рё СЌР»РµРјРµРЅС‚ в„– %i СЃРѕ Р·РЅР°С‡РµРЅРёРµРј \"%s\".", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
 		break;
@@ -104,7 +104,7 @@ BOOL CALLBACK DlgProcAdd(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)sz_buffer);
 			else
 			{
-				MessageBox(hwnd, "Такой элемент уже существует", "Warning", MB_OK | MB_ICONWARNING);
+				MessageBox(hwnd, "РўР°РєРѕР№ СЌР»РµРјРµРЅС‚ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚", "Warning", MB_OK | MB_ICONWARNING);
 				break;
 			}
 		}
@@ -126,7 +126,7 @@ BOOL CALLBACK DlgProcEdit(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{ 
 	case WM_INITDIALOG:
 	{
-		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)"Изменить");
+		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)"РР·РјРµРЅРёС‚СЊ");
 		HWND hParent = GetParent(hwnd);
 		HWND hList = GetDlgItem(hParent, IDC_LIST1);
 		HWND hEdit = GetDlgItem(hwnd, IDC_EDIT);
