@@ -11,7 +11,7 @@ BOOL CALLBACK DlgProcEdit(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
-	// hInstance - экземпляр 
+	//hInstance - это экземпляр исполняемого файла программы, загруженного в память (*.exe) 
 	DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_DIALOG_MAIN), NULL, (DLGPROC)DlgProc, 0);
 	return 0;
 }
@@ -34,11 +34,11 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		switch (LOWORD(wParam))
 		{
 		case IDC_LIST1:
-			
-			if(HIWORD(wParam)==LBN_DBLCLK)
+			if (HIWORD(wParam) == LBN_DBLCLK)
+				//GetModuleHandle(NULL);	//Возвращает 'hInstance' нашей программы.
 				DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_ADD), hwnd, (DLGPROC)DlgProcEdit, 0);
 			break;
-			
+
 			/*switch (HIWORD(wParam))
 			{
 			case LBN_DBLCLK:
@@ -72,12 +72,31 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
 		break;
+		
 		case IDCANCEL:
 			EndDialog(hwnd, 0);
 			break;
 		}
 	}
 	break;
+
+	/*case WM_VKEYTOITEM:
+	{
+		MessageBox(hwnd, "Enter pressed", "Info", MB_OK | MB_ICONINFORMATION);
+		switch (LOWORD(wParam))
+		{
+		case VK_SPACE:
+		{
+			HWND hList = GetDlgItem(hwnd, IDC_LIST1);
+			if (GetFocus() == hList)
+			{
+				DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_ADD), hwnd, (DLGPROC)DlgProcEdit, 0);
+			}
+		}
+		}
+	}
+	break;*/
+	
 	case WM_CLOSE:
 		EndDialog(hwnd, 0);
 		//break;
@@ -93,7 +112,7 @@ BOOL CALLBACK DlgProcAdd(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		SetFocus(GetDlgItem(hwnd, IDC_EDIT));
 	}
-		break;
+	break;
 
 	case WM_COMMAND:
 	{
@@ -115,12 +134,12 @@ BOOL CALLBACK DlgProcAdd(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 		}
-			//break;
+		//break;
 		case IDCANCEL:
 			EndDialog(hwnd, 0);
 		}
 	}
-		break;
+	break;
 	case WM_CLOSE:
 		EndDialog(hwnd, 0);
 	}
@@ -131,9 +150,9 @@ BOOL CALLBACK DlgProcEdit(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	CONST INT SIZE = 256;
 	CHAR sz_buffer[SIZE] = {};
-	
+
 	switch (uMsg)
-	{ 
+	{
 	case WM_INITDIALOG:
 	{
 		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)"Изменить");
@@ -154,21 +173,19 @@ BOOL CALLBACK DlgProcEdit(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT);
 			SendMessage(hEdit, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
-			
+
 			HWND hParent = GetParent(hwnd);
 			HWND hList = GetDlgItem(hParent, IDC_LIST1);
 			INT i = SendMessage(hList, LB_GETCURSEL, 0, 0);
-			
-			if(SendMessage(hList, LB_FINDSTRING,0,(LPARAM)sz_buffer)==LB_ERR)
-			{ 
+
+			if (SendMessage(hList, LB_FINDSTRING, 0, (LPARAM)sz_buffer) == LB_ERR)
+			{
 				SendMessage(hList, LB_DELETESTRING, i, NULL);
-				
 				SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)sz_buffer);
 			}
 		}
-		
 		case IDCANCEL:
-			EndDialog(hwnd, 0); 
+			EndDialog(hwnd, 0);
 			//break;
 		}
 		break;
