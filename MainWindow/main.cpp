@@ -1,4 +1,4 @@
-// MainWindow
+п»ї// MainWindow
 
 #include<Windows.h>
 
@@ -14,20 +14,20 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	WNDCLASSEX wClass;
 	ZeroMemory(&wClass, sizeof(wClass));
 
-	// Инициализируем размеры и стиль:
+	// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЂР°Р·РјРµСЂС‹ Рё СЃС‚РёР»СЊ:
 
 	wClass.style = NULL;
 	wClass.cbSize = sizeof(wClass);
 	wClass.cbClsExtra = 0;
 	wClass.cbWndExtra = 0;
 
-	// Инициализируем внешний вид окон:
+	// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІРЅРµС€РЅРёР№ РІРёРґ РѕРєРѕРЅ:
 	wClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wClass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 	wClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 
-	// Инициализация системных переменных:
+	// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРёСЃС‚РµРјРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…:
 
 	wClass.hInstance = hInstance;
 	wClass.lpszClassName = g_sz_WINDOW_CLASS;
