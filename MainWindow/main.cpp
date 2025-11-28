@@ -10,6 +10,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT UMsg, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
+	//	1) Регистрация класса окна.
+	//	На этом этапе класс нашего окна регистрируется в ОС.
+	//	Класс окна это не тип данных, как в ООП, класс любого окна представляет собой 
+	//	самую обычную строку с именем класса.
 
 	WNDCLASSEX wClass;
 	ZeroMemory(&wClass, sizeof(wClass));
@@ -39,17 +43,21 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		MessageBox(NULL, "Class registration failed", NULL, MB_OK | MB_ICONERROR);
 		return 0;
 	}
+	
+	//	2) Создание окна:
 
 	HWND hwnd = CreateWindowEx
 	(
+		NULL,	//exStyle
+		g_sz_WINDOW_CLASS,	//Имя класса окна
+		g_sz_WINDOW_CLASS,	//Заголовок окна
+		WS_OVERLAPPEDWINDOW,	//Стиль окна. Стили всегда зависят от класса окна.
+								//'WS_OVERLAPPEDWINDOW' - нлавное окно
+		CW_USEDEFAULT, CW_USEDEFAULT,	//Position
+		CW_USEDEFAULT, CW_USEDEFAULT,	//Размер окна
 		NULL,
-		g_sz_WINDOW_CLASS,
-		g_sz_WINDOW_CLASS,
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		NULL,
-		NULL,
+		NULL,	//Для главного окна это ResourceID главного меню, 
+				//для дочернего окна (Control) - ResourceID дочернего окна (IDC_BUTTON_COPY)
 		hInstance,
 		NULL
 	);
@@ -63,6 +71,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	UpdateWindow(hwnd);
 		return 0;
 }
+	
+//	3) Запуск цикла сообщений:
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
