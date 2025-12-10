@@ -146,8 +146,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				);
 			}
 		}
-		
-			HWND hButtonZero = CreateWindowEx
+
+		HWND hButtonZero = CreateWindowEx
 		(
 			NULL, "Button", "0",
 			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
@@ -163,9 +163,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		HBITMAP hbmpZero = (HBITMAP)LoadImage
 		(
-			GetModuleHandle(NULL), 
+			GetModuleHandle(NULL),
 			"Zero.bmp",
-			IMAGE_BITMAP, 
+			IMAGE_BITMAP,
 			//LR_DEFAULTSIZE, LR_DEFAULTSIZE,
 			g_i_DOUBLE_BUTTON_SIZE, g_i_BUTTON_SIZE,
 			LR_LOADFROMFILE
@@ -329,9 +329,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				else b = atof(sz_buffer);
 				input = FALSE;
 			}
-			
+
 			if (b == DBL_MIN) break;
-			
+
 			switch (operation)
 			{
 			case IDC_BUTTON_PLUS: a += b; break;
@@ -447,6 +447,35 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	break;
 
+	case WM_CONTEXTMENU:
+	{
+		HMENU cmMain = CreatePopupMenu();
+		AppendMenu(cmMain, MF_STRING, IDM_SQUARE_BLUE, "Square blue");
+		AppendMenu(cmMain, MF_STRING, IDM_METAL_MISTRAL, "Metal mistral");
+		AppendMenu(cmMain, MF_SEPARATOR, NULL, NULL);
+		AppendMenu(cmMain, MF_STRING, IDM_EXIT, "Exit");
+
+		BOOL selected_item = TrackPopupMenuEx
+		(
+			cmMain,
+			TPM_RIGHTALIGN | TPM_BOTTOMALIGN | TPM_RETURNCMD | TPM_RIGHTBUTTON | TPM_VERNEGANIMATION,
+			LOWORD(lParam), HIWORD(lParam),
+			//0,	//Reserved
+			hwnd,
+			NULL
+		);
+
+		switch (selected_item)
+		{
+		case IDM_SQUARE_BLUE: SetSkin(hwnd, "square_blue"); break;
+		case IDM_METAL_MISTRAL: SetSkin(hwnd, "metal_mistral"); break;
+		case IDM_EXIT: SendMessage(hwnd, WM_CLOSE, 0, 0); break;
+		}
+
+		DestroyMenu(cmMain);
+	}
+	break;
+
 	case WM_DESTROY:
 		FreeConsole();
 		PostQuitMessage(0);
@@ -480,9 +509,9 @@ VOID SetSkin(HWND hwnd, const CHAR skin[])
 			g_i_BUTTON_SIZE,
 			LR_LOADFROMFILE
 		);
-		SendMessage(hButton, BM_SETIMAGE,0,(LPARAM)bmpButton);
+		SendMessage(hButton, BM_SETIMAGE, 0, (LPARAM)bmpButton);
 	}
-	
+
 }
 
 
