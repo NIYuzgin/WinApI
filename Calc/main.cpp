@@ -481,7 +481,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		InvalidateRect(hwnd, 0, TRUE);
 		SetSkin(hwnd, g_sz_SKIN[skinID]);
-		
+
 		DestroyMenu(cmMain);
 	}
 	break;
@@ -500,7 +500,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return FALSE;
-
 }
 
 VOID SetSkin(HWND hwnd, const CHAR skin[])
@@ -517,6 +516,29 @@ VOID SetSkin(HWND hwnd, const CHAR skin[])
 			IMAGE_BITMAP,
 			i == 0 ? g_i_DOUBLE_BUTTON_SIZE : g_i_BUTTON_SIZE,
 			g_i_BUTTON_SIZE,
+			LR_LOADFROMFILE
+		);
+		SendMessage(hButton, BM_SETIMAGE, 0, (LPARAM)bmpButton);
+	}
+
+	CONST CHAR* button_operation[] =
+	{
+		"button_point", "button_plus","button_minus",
+		"button_aster", "button_slash","button_bsp",
+		"button_clr", "button_equal"
+	};
+	for (int i = 0; i <= 7; i++)
+	{
+		sprintf(sz_filename, "ButtonsBMP\\%s\\%s.bmp", skin, button_operation[i]);
+		
+		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_POINT + i);
+		HBITMAP bmpButton = (HBITMAP)LoadImage
+		(
+			GetModuleHandle(NULL),
+			sz_filename,
+			IMAGE_BITMAP,
+			g_i_BUTTON_SIZE,
+			i == 7 ? g_i_DOUBLE_BUTTON_SIZE : g_i_BUTTON_SIZE,
 			LR_LOADFROMFILE
 		);
 		SendMessage(hButton, BM_SETIMAGE, 0, (LPARAM)bmpButton);
